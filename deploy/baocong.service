@@ -1,0 +1,23 @@
+# Chạy Báo Công như một dịch vụ, tự khởi động lại khi lỗi / khi VPS reboot.
+# Copy vào /etc/systemd/system/baocong.service rồi:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now baocong
+[Unit]
+Description=Bao Cong
+After=network.target
+
+[Service]
+Type=simple
+User=baocong
+WorkingDirectory=/opt/baocong
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOST=127.0.0.1
+Environment=TZ=Asia/Ho_Chi_Minh
+Environment=COOKIE_SECURE=1
+Environment=DATA_DIR=/opt/baocong/data
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

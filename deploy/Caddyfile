@@ -1,0 +1,9 @@
+# Caddy tự xin chứng chỉ HTTPS miễn phí (Let's Encrypt).
+# Thay bằng tên miền của bạn, trỏ bản ghi A của tên miền về IP VPS trước.
+baocong.example.com {
+	encode gzip
+	request_body {
+		max_size 10MB
+	}
+	reverse_proxy 127.0.0.1:3000
+}
